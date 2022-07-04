@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 
 // All nuetral mobs
@@ -114,12 +115,14 @@ public class NuetralHostility extends JavaPlugin {
         Player closestPlayer = null;
 
         for (Player player : getServer().getOnlinePlayers()) {
-            if (closestPlayer == null) {
-                closestPlayer = player;
-            } else {
-                if (player.getLocation().distance(e.getLocation()) < closestPlayer.getLocation()
-                        .distance(e.getLocation())) {
+            if (player.getGameMode() == GameMode.SURVIVAL) {
+                if (closestPlayer == null) {
                     closestPlayer = player;
+                } else {
+                    if (player.getLocation().distance(e.getLocation()) < closestPlayer.getLocation()
+                            .distance(e.getLocation())) {
+                        closestPlayer = player;
+                    }
                 }
             }
         }
